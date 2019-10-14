@@ -59,14 +59,14 @@ class AppointmentController {
     if (!isProvider) {
       return res
         .status(401)
-        .json({ error: 'You can only create with providers.' });
+        .json({ error: 'You can only create appointments with providers.' });
     }
 
     // Check if current user is the provider
     if (req.userId === provider_id) {
       return res
         .status(401)
-        .json({ error: 'You can create an appointment with yourself.' });
+        .json({ error: "You can't create an appointment with yourself." });
     }
 
     // Check for past dates
@@ -135,7 +135,7 @@ class AppointmentController {
 
     if (isBefore(dateWithSub, new Date())) {
       return res.status(401).json({
-        error: 'You can only cancel appointments 2 hours in advance.',
+        error: 'You can only cancel appointments 2 hours or more in advance.',
       });
     }
 
